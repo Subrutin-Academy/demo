@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2021-11-05T09:38:54 WIB" name="Default suite" finished-at="2021-11-05T09:39:01 WIB" duration-ms="6508">
+    <groups>
+    </groups>
+    <test started-at="2021-11-05T09:38:54 WIB" name="Default test" finished-at="2021-11-05T09:39:01 WIB" duration-ms="6508">
+      <class name="com.nostra.demo.nostra.HomePageTest">
+        <test-method is-config="true" signature="springTestContextBeforeTestClass()[pri:0, instance:com.nostra.demo.nostra.HomePageTest@6eeade6c]" started-at="2021-11-05T09:38:54 WIB" name="springTestContextBeforeTestClass" finished-at="2021-11-05T09:38:54 WIB" duration-ms="7" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method is-config="true" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.nostra.demo.nostra.HomePageTest@6eeade6c]" started-at="2021-11-05T09:38:54 WIB" name="springTestContextPrepareTestInstance" finished-at="2021-11-05T09:38:58 WIB" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" duration-ms="3201" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method is-config="true" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.nostra.demo.nostra.HomePageTest@6eeade6c]" started-at="2021-11-05T09:38:58 WIB" name="springTestContextBeforeTestMethod" finished-at="2021-11-05T09:38:58 WIB" duration-ms="3" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.nostra.demo.nostra.HomePageTest.clickAboutUsTest()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method signature="clickAboutUsTest()[pri:0, instance:com.nostra.demo.nostra.HomePageTest@6eeade6c]" started-at="2021-11-05T09:38:58 WIB" name="clickAboutUsTest" finished-at="2021-11-05T09:39:01 WIB" duration-ms="3269" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickAboutUsTest -->
+        <test-method is-config="true" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.nostra.demo.nostra.HomePageTest@6eeade6c]" started-at="2021-11-05T09:39:01 WIB" name="springTestContextAfterTestMethod" finished-at="2021-11-05T09:39:01 WIB" duration-ms="2" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.nostra.demo.nostra.HomePageTest.clickAboutUsTest()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method is-config="true" signature="springTestContextAfterTestClass()[pri:0, instance:com.nostra.demo.nostra.HomePageTest@6eeade6c]" started-at="2021-11-05T09:39:01 WIB" name="springTestContextAfterTestClass" finished-at="2021-11-05T09:39:01 WIB" duration-ms="2" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+      </class> <!-- com.nostra.demo.nostra.HomePageTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
