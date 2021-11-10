@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -36,4 +37,8 @@ public class Book {
 			@JoinColumn(name="author_id", referencedColumnName = "id")
 	})
 	private Set<Author> authors;
+	
+	@ManyToOne
+	@JoinColumn(name = "publisher_id", nullable = false)
+	private Publisher publisher;
 }
