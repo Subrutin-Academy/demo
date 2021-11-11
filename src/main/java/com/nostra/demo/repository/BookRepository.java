@@ -10,6 +10,8 @@ import com.nostra.demo.dto.BookQueryDTO;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 	
+	//konvensi spring data  findByXXXXXX
+	
 	public List<Book> findByTitleLikeIgnoreCase(String title);
 	
 	//jpql / native = sql
@@ -22,5 +24,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 			+ "INNER JOIN Publisher p ON p.id = b.publisher.id "
 			+ "WHERE b.title LIKE :title")
 	public List<BookQueryDTO> findByBookTitleWithJoin(String title);
+	
+	//bikin table view
+	
+	
 
 }
