@@ -1,5 +1,7 @@
 package com.nostra.demo.web;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +23,7 @@ public class AuthorResource {
 	private final AuthorService authorService;
 
 	@PostMapping("/v1/author")
-	public ResponseEntity<Void> createAuthor(@RequestBody AuthorCreateRequestDTO dto) {
+	public ResponseEntity<Void> createAuthor(@RequestBody @Valid AuthorCreateRequestDTO dto) {
 
 		authorService.createNewAuthor(dto);
 		return ResponseEntity.ok().build();
