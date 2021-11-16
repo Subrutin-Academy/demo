@@ -16,7 +16,7 @@ import com.nostra.demo.service.validator.NameValidator;
 @Target(FIELD)
 public @interface ValidName {
 	
-	String message() default "hatta is not valid name";
+	String message() default "hatta is not valid name"; 
 	
     Class<?>[] groups() default {};
 
