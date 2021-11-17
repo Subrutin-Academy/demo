@@ -1,11 +1,13 @@
 package com.nostra.demo.exception;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,6 +21,7 @@ import com.nostra.demo.dto.ErrorResponseDTO;
 public class DemoExceptionHandler extends ResponseEntityExceptionHandler {
 
 	
+
 	@ExceptionHandler(ResourceNotFoundException.class)
 	protected ResponseEntity<ErrorResponseDTO> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
 		List<String> details = new ArrayList<>();
@@ -27,6 +30,18 @@ public class DemoExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		return ResponseEntity.badRequest().body(dto);
 	}
+	
+	
+	@ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+	protected ResponseEntity<ErrorResponseDTO> handleResourceDeniedException(AccessDeniedException ex) {
+		List<String> details = new ArrayList<>();
+		details.add(ex.getMessage());
+		ErrorResponseDTO dto = ErrorResponseDTO.of("unauthorized", details);
+		
+		return ResponseEntity.badRequest().body(dto);
+	}
+	
+	
 	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
