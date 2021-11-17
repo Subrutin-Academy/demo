@@ -49,9 +49,9 @@ public class BookServiceImpl implements BookService {
 	public void createNewBook(BookCreateRequestDTO dto) {
 		Set<Author> authors = authorRepository.findByIdIn(dto.getAuthorIds());
 
-//		Publisher publisher = publisherRepository.findOneById(dto.getPublisherId())
-//				.orElseThrow(() -> new ResourceNotFoundException("invalid.publisher.id"));
-		Publisher publisher = new Publisher();
+		Publisher publisher = publisherRepository.findOneById(dto.getPublisherId())
+				.orElseThrow(() -> new ResourceNotFoundException("invalid.publisher.id"));
+//		Publisher publisher = new Publisher();
 		//property
 		Book book = new Book();
 		book.setAuthors(authors);

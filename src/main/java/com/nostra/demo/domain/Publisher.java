@@ -24,7 +24,5 @@ public class Publisher {
 	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@OneToMany(mappedBy = "book")
-	private Set<Book> books;
 
 }

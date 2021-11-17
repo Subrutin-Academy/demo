@@ -29,8 +29,8 @@ public class Author extends AbstractBaseEntity{
 	@Column(name = "birth_date")
 	private LocalDate birthDate;
 	
-	@ManyToMany(mappedBy = "authors")
-	public Set<Book> books;
+//	@ManyToMany(mappedBy = "authors")
+//	public Set<Book> books;
 	
 
 }
