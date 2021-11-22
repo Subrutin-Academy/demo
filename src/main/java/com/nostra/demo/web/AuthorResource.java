@@ -23,7 +23,7 @@ public class AuthorResource {
 
 	private final AuthorService authorService;
 
-	@PreAuthorize("hasRole('ADMINS')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/v1/author")
 	public ResponseEntity<Void> createAuthor(@RequestBody @Valid AuthorCreateRequestDTO dto) {
 
@@ -31,6 +31,7 @@ public class AuthorResource {
 		return ResponseEntity.ok().build();
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/v1/author/{authorId}")
 	public ResponseEntity<AuthorDetailResponseDTO> findAuthorById(@PathVariable Long authorId) {
 

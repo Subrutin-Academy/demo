@@ -27,8 +27,23 @@ public class ErrorResponseDTO implements Serializable{
 		this.timestamp = new Date();
 	}
 	
+	
+	public ErrorResponseDTO(String message) {
+		super();
+		this.message = message;
+	}
+	
 	public static ErrorResponseDTO of(final String message, List<String> details) {
 		return new ErrorResponseDTO(message, details);
 	}
+	
+	public static ErrorResponseDTO of(final String message) {
+		return new ErrorResponseDTO(message);
+	}
+
+
+
+
+
 
 }
