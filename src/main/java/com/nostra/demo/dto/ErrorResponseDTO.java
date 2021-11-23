@@ -31,6 +31,8 @@ public class ErrorResponseDTO implements Serializable{
 	public ErrorResponseDTO(String message) {
 		super();
 		this.message = message;
+		this.timestamp = new Date();
+
 	}
 	
 	public static ErrorResponseDTO of(final String message, List<String> details) {

@@ -1,5 +1,8 @@
 package com.nostra.demo.config;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +20,12 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nostra.demo.security.filter.JwtTokenAuthenticationProcessingFilter;
 import com.nostra.demo.security.filter.UsernamePasswordAuthProcessingFilter;
+import com.nostra.demo.security.provider.JWTAuthenticationProvider;
 import com.nostra.demo.security.provider.UsernamePasswordAuthProvider;
+import com.nostra.demo.security.util.SkipPathRequestMatcher;
+import com.nostra.demo.security.util.TokenExtractor;
 import com.nostra.demo.service.AppUserService;
 
 @EnableWebSecurity
@@ -42,11 +49,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired 
     private UsernamePasswordAuthProvider usernamePasswordAuthProvider;
     
+	@Autowired
+	private JWTAuthenticationProvider jwtAuthenticationProvider;   
+    
+    
     @Autowired
 	private AuthenticationManager authenticationManager;
 	
     @Autowired 
     private ObjectMapper objectMapper;
+    
+	@Autowired
+	private TokenExtractor tokenExtractor;
     
 	@Bean
 	@Override
@@ -58,6 +72,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //		auth.  (appUserService).passwordEncoder(passwordEncoder());
 		auth.authenticationProvider(usernamePasswordAuthProvider);
+        auth.authenticationProvider(jwtAuthenticationProvider);
+
+	}
+	
+	protected JwtTokenAuthenticationProcessingFilter buildJwtTokenAuthenticationProcessingFilter(
+			List<String> pathsToSkip, List<String> patternList)  {
+		SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(pathsToSkip, patternList);
+		JwtTokenAuthenticationProcessingFilter filter = new JwtTokenAuthenticationProcessingFilter(failureHandler,
+				tokenExtractor, matcher);
+		filter.setAuthenticationManager(this.authenticationManager);
+		return filter;
 	}
 
 	protected UsernamePasswordAuthProcessingFilter buildUsernamePasswordProcessingFilter(String loginEntryPoint)  {
@@ -69,6 +94,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
+		List<String> permitAllEndpointList = Arrays.asList(
+				AUTHENTICATION_URL,
+				"/actuator/**",
+				"/console", 
+				"/h2-console/**", 
+				"/swagger-resources/**",
+				"/swagger-ui.html", 
+				"/v2/api-docs", 
+				"/webjars/**"
+		);
+		List<String> aunthenticatedEndpointList = Arrays.asList(
+				V1_URL
+		);
+		
 		http
 		.csrf().disable()
 		.headers().frameOptions().disable()
@@ -77,7 +117,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
     	.authorizeRequests().antMatchers(V1_URL).authenticated()
     	.and()
-        .addFilterBefore(buildUsernamePasswordProcessingFilter(AUTHENTICATION_URL), UsernamePasswordAuthenticationFilter.class);
+        .addFilterBefore(buildUsernamePasswordProcessingFilter(AUTHENTICATION_URL), UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(permitAllEndpointList,
+                aunthenticatedEndpointList), UsernamePasswordAuthenticationFilter.class);;
 
 //		.httpBasic();
 	}
